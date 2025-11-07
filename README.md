@@ -74,7 +74,6 @@ This project is open-source and available under the MIT License.
 
 ## ✅ Just copy-paste this into a file named **`README.md`** inside your project folder.  
 
-Would you like me to also generate a short **`requirements.txt`** file (listing Django and dependencies) so you can upload it along with the README?
 
 
 
