@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineVault</title>
+    <style>
+        /* Body styling */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Heading */
+        h1 {
+            margin-top: 100px;
+            font-size: 3rem;
+            color: #222;
+            text-align: center;
+        }
+
+        /* Form container */
+        form {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Search input */
+        input[type="text"] {
+            width: 400px;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007BFF;
+            box-shadow: 0 2px 10px rgba(0,123,255,0.3);
+        }
+
+        /* Search button */
+        button {
+            padding: 15px 25px;
+            margin-left: 10px;
+            border-radius: 50px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Movie display container */
+        .movie-container {
+            margin-top: 50px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .movie-container img {
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .movie-container p {
+            margin: 10px 0;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .movie-container strong {
+            color: #007BFF;
+        }
+
+        /* Error message */
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 500px) {
+            input[type="text"] {
+                width: 70%;
+            }
+            button {
+                padding: 12px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>CineVault</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Enter movie name"/>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if movie %}
+        {% if movie.Response == "True" %}
+            <div class="movie-container">
+                <h2>{{ movie.Title }}  ({{ movie.Year }})</h2>
+                <img src="{{ movie.Poster }}" alt="Poster" width="200">
+                <p><strong>Genre:</strong> {{ movie.Genre }}</p>
+                <p><strong>Director:</strong> {{ movie.Director }}</p>
+                <p><strong>Actors:</strong> {{ movie.Actors }}</p>
+                <p><strong>Plot:</strong> {{ movie.Plot }}</p>
+                <p><strong>IMDB Rating:</strong> {{ movie.imdbRating }}</p>
+            </div>
+        {% else %}
+            <p class="error">Movie not found</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
